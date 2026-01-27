@@ -1,15 +1,23 @@
-# Adelie Portfolio Site
+# Adelie Lorge Portfolio
 
-Static personal website for Adelie Lorge.
+Clean, single-page portfolio site showcasing Adelie Lorge's education, research, projects, and certifications.
 
-## Structure
-- `index.html` — page content
-- `style.css` — styling
-- `script.js` — theme toggle + UI helpers
+## Highlights
+- Responsive, fast-loading static site
+- Light/dark theme toggle with persistence
+- Printable resume and certification downloads
+
+## Tech
+- HTML + CSS + vanilla JavaScript (no build step)
+
+## Project structure
+- `index.html` — content and layout
+- `style.css` — design system and component styles
+- `script.js` — theme toggle and UI behavior
 - `assets/` — images and PDFs
 
 ## Run locally
-Open `index.html` directly in a browser, or use a simple server:
+Open `index.html` directly, or run a local server:
 
 ```bash
 python3 -m http.server 8000
