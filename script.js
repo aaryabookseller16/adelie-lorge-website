@@ -23,14 +23,16 @@
         setTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark');
       });
   
-      // Show/hide side nav on small screens (if you later expose it)
+      // Show/hide side nav on small screens
       const mBtn = document.getElementById('menu-toggle');
       const nav = document.querySelector('.side-nav');
       if(mBtn && nav){
-        mBtn.addEventListener('click', ()=>{
-          const shown = getComputedStyle(nav).display !== 'none';
-          nav.style.display = shown ? 'none' : 'flex';
-        });
+        const mq = window.matchMedia('(max-width: 900px)');
+        const syncNav = () => { if(!mq.matches) nav.classList.remove('is-open'); };
+        mBtn.addEventListener('click', () => nav.classList.toggle('is-open'));
+        if(mq.addEventListener){ mq.addEventListener('change', syncNav); }
+        else if(mq.addListener){ mq.addListener(syncNav); }
+        syncNav();
       }
   
       // Footer year
