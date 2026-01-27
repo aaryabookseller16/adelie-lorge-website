@@ -30,6 +30,9 @@
         const mq = window.matchMedia('(max-width: 900px)');
         const syncNav = () => { if(!mq.matches) nav.classList.remove('is-open'); };
         mBtn.addEventListener('click', () => nav.classList.toggle('is-open'));
+        nav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => { if(mq.matches) nav.classList.remove('is-open'); });
+        });
         if(mq.addEventListener){ mq.addEventListener('change', syncNav); }
         else if(mq.addListener){ mq.addListener(syncNav); }
         syncNav();
