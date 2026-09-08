@@ -32,3 +32,10 @@ python3 -m http.server 8000
 ```
 
 Then visit `http://localhost:8000`.
+
+## Deployment
+
+- GitHub: https://github.com/aaryabookseller16/adelie-lorge-website
+- Vercel project: `aarya16/adelie-lorge-website`
+- Production domain: https://adelielorge.com
+- Pushes to `main` deploy automatically through the Vercel GitHub integration.
