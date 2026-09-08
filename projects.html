@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function () {
+      const KEY = "theme";
+      const root = document.documentElement;
+      let t = "light";
+      try {
+        const s = localStorage.getItem(KEY);
+        t = (s === "light" || s === "dark") ? s : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      } catch {}
+      root.setAttribute("data-theme", t);
+      root.style.colorScheme = t;
+      window.__setTheme = (theme) => {
+        const next = theme === "dark" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        root.style.colorScheme = next;
+        try { localStorage.setItem(KEY, next); } catch {}
+        const light = document.getElementById("lightCSS");
+        const dark  = document.getElementById("darkCSS");
+        if (light && dark) { light.disabled = next !== "light"; dark.disabled = next !== "dark"; }
+      };
+    })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research &amp; Projects — Adelie Lorge</title>
+  <meta name="description" content="Research and project work by Adelie Lorge — microfluidic fabrication, bacterial motility research, and engineering coursework projects." />
+  <link rel="canonical" href="https://adelie-lorge.github.io/adelie-lorge/projects.html" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Adelie Lorge" />
+  <meta property="og:title" content="Research & Projects — Adelie Lorge" />
+  <meta property="og:description" content="Research and project work by Adelie Lorge — microfluidic fabrication, bacterial motility research, and engineering coursework projects." />
+  <meta property="og:url" content="https://adelie-lorge.github.io/adelie-lorge/projects.html" />
+  <meta property="og:image" content="https://adelie-lorge.github.io/adelie-lorge/assets/images/headshot.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Research & Projects — Adelie Lorge" />
+  <meta name="twitter:description" content="Research and project work by Adelie Lorge — microfluidic fabrication, bacterial motility research, and engineering coursework projects." />
+  <meta name="twitter:image" content="https://adelie-lorge.github.io/adelie-lorge/assets/images/headshot.jpeg" />
+
+  <link rel="stylesheet" href="assets/css/style.css?v=3" />
+  <link id="lightCSS" rel="stylesheet" href="assets/css/theme-light.css?v=3">
+  <link id="darkCSS"  rel="stylesheet" href="assets/css/theme-dark.css?v=3" disabled>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-bar">
+        <a class="brand" href="index.html">Adelie<span>.</span></a>
+
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <path d="M2 4h12M2 8h12M2 12h12"/>
+          </svg>
+        </button>
+
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="projects.html" aria-current="page">Research &amp; Projects</a>
+          <a href="background.html">Background</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <button id="themeToggle" class="btn-icon theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="container">
+        <div class="page-hero">
+          <div class="page-hero__copy">
+            <span class="eyebrow">Research &amp; Projects</span>
+            <h1 class="hero-page-title">Research &amp; Projects</h1>
+            <p class="hero-page-lead">Undergraduate research in microfluidic fabrication and bacterial motility, plus engineering coursework projects in modeling and data analysis.</p>
+            <div class="hero-actions">
+              <a class="btn" href="assets/docs/Adelie-Lorge-Resume.pdf" download>Download Résumé</a>
+              <a class="btn" href="background.html">Background</a>
+            </div>
+          </div>
+          <div class="page-snapshot" aria-label="Projects snapshot">
+            <div class="snapshot-metrics">
+              <div class="snapshot-metric"><strong>2</strong><span>RESEARCH POSITIONS</span></div>
+              <div class="snapshot-metric"><strong>1</strong><span>PROJECT</span></div>
+              <div class="snapshot-metric"><strong>1</strong><span>PUBLICATION</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="project-filter" role="group" aria-label="Filter by type">
+          <button class="pill-btn" data-filter="all" aria-pressed="true">All</button>
+          <button class="pill-btn" data-filter="Research" aria-pressed="false">Research</button>
+          <button class="pill-btn" data-filter="Project" aria-pressed="false">Projects</button>
+        </div>
+
+        <div class="research-list" id="research-list">
+          <details class="research-item" data-type="Research" id="research" open>
+            <summary class="research-item__summary">
+              <div>
+                <span class="research-item__org">Dr. Pushkar Lele Lab · Texas A&amp;M University</span>
+                <h3><a href="https://pushkarlelelab.org/" target="_blank" rel="noopener">Microfluidic Process Development and Materials Research</a></h3>
+                <span class="research-item__meta">College Station, TX · Aug 2025 – Present</span>
+              </div>
+            <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+            </summary>
+            <div class="research-item__body">
+              <ul>
+                <li>Develop a low-cost microfabrication process using photocurable optical adhesives as reusable masters for high-fidelity PDMS replication.</li>
+                <li>Design and execute experiments varying surface treatments, curing conditions, and demolding methods to improve mold release, durability, and reusability.</li>
+                <li>Achieved high-fidelity replication of features as small as 1.1 µm while evaluating mold degradation across 10 casting cycles.</li>
+                <li>Compare polymeric molds with conventional silicon masters based on feature fidelity, durability, fabrication cost, and accessibility.</li>
+                <li>Present experimental findings and process recommendations to faculty and graduate researchers.</li>
+              </ul>
+              <div class="pills"><span class="pill">PDMS</span><span class="pill">Microfluidics</span><span class="pill">Optical Microscopy</span><span class="pill">Surface Treatment</span></div>
+            </div>
+          </details>
+
+          <details class="research-item" data-type="Research" id="bacterial-motility">
+            <summary class="research-item__summary">
+              <div>
+                <span class="research-item__org">Dr. Pushkar Lele Lab · Texas A&amp;M University</span>
+                <h3>Summer Research Project — Bacterial Motility and Microfluidics</h3>
+                <span class="research-item__meta">College Station, TX · Jun 2026 – Present</span>
+              </div>
+            <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+            </summary>
+            <div class="research-item__body">
+              <ul>
+                <li>Cultured <em>E. coli</em>, <em>H. pylori</em>, and <em>Caulobacter crescentus</em> using aseptic techniques and BSL-2 laboratory practices.</li>
+                <li>Conducted bacterial motility and chemotaxis experiments in microfluidic devices and recorded cell behavior using video microscopy.</li>
+                <li>Used fluorescence microscopy to visualize bacterial flagella and evaluate their relationship to cell motility.</li>
+                <li>Performed quantitative image and video analysis to measure cell and flagellar velocities, cell length, swimming angles, and motility behavior in bulk and confined microchannels.</li>
+              </ul>
+              <div class="pills"><span class="pill">Bacterial Culture</span><span class="pill">Chemotaxis</span><span class="pill">Fluorescence Microscopy</span></div>
+            </div>
+          </details>
+
+          <details class="research-item" data-type="Project" id="rocket-modeling">
+            <summary class="research-item__summary">
+              <div>
+                <span class="research-item__org">CHEN 201 Lab · Texas A&amp;M University</span>
+                <h3>Rocket Modeling Project</h3>
+                <span class="research-item__meta">College Station, TX · Aug 2024 – Dec 2024</span>
+              </div>
+            <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+            </summary>
+            <div class="research-item__body">
+              <p>Excel/VBA modeling project using experimental data to improve rocket flight-performance predictions.</p>
+              <ul>
+                <li>Built and calibrated Excel/VBA-based rocket flight performance models using experimental data.</li>
+                <li>Automated parameter tuning and calculations to improve prediction accuracy and modeling efficiency.</li>
+                <li>Integrated experimental measurements with computational analysis to assess model sensitivity and robustness.</li>
+              </ul>
+              <div class="pills"><span class="pill">Excel</span><span class="pill">VBA</span></div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="publications">
+      <div class="container">
+        <span class="eyebrow">Publications &amp; Awards</span>
+        <h2>Publications &amp; Awards</h2>
+        <div class="research-list" id="publications-list">
+          <details class="research-item">
+            <summary class="research-item__summary">
+              <div>
+                <span class="research-item__org">Preprint</span>
+                <h3>Lorge, A., et al. — High-Fidelity Micron-Sized Pattern Transfer to PDMS Molds through UV-Ozone Treated Polymeric Replicas of Silicon Wafers</h3>
+                <span class="research-item__meta">First author</span>
+              </div>
+            <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+            </summary>
+            <div class="research-item__body">
+              <p>Manuscript on a low-cost microfabrication process using UV-ozone treated polymeric replicas for high-fidelity PDMS pattern transfer.</p>
+            </div>
+          </details>
+
+          <details class="research-item">
+            <summary class="research-item__summary">
+              <div>
+                <span class="research-item__org">Award</span>
+                <h3>Best Undergraduate Poster Award</h3>
+                <span class="research-item__meta">ChEGSA Annual Symposium, Texas A&amp;M University · Summer 2026</span>
+              </div>
+            <svg class="chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 6l4 4 4-4"/>
+            </svg>
+            </summary>
+            <div class="research-item__body">
+              <p>Awarded for research presented at the ChEGSA Annual Symposium, Texas A&amp;M University.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bar">
+        <span class="footer-copy">© <span id="year"></span> Adelie Lorge</span>
+        <a class="footer-contact" href="contact.html">Contact me <span class="arrow">→</span></a>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/adelie-lorge-316425382/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.329-.026-3.042-1.855-3.042-1.855 0-2.138 1.447-2.138 2.941v5.67H9.346V9h3.414v1.561h.047c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.92 20.452H3.752V9h3.168v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <span class="tooltip">
+            <a href="mailto:adelielorge@gmail.com" aria-label="Email">✉</a>
+            <span class="tooltip-text">adelielorge@gmail.com</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function syncTheme(){
+      const t = document.documentElement.getAttribute("data-theme") || "light";
+      const light = document.getElementById("lightCSS");
+      const dark  = document.getElementById("darkCSS");
+      if (light && dark) { light.disabled = t !== "light"; dark.disabled = t !== "dark"; }
+    })();
+
+    (function mobileNav(){
+      const toggle = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('site-nav');
+      if (!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('open', !open);
+      });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }));
+      const mq = window.matchMedia('(min-width: 769px)');
+      const sync = () => { if (mq.matches) { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); } };
+      mq.addEventListener ? mq.addEventListener('change', sync) : mq.addListener(sync);
+    })();
+
+    (function themeToggle(){
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const sync = () => btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+      sync();
+      btn.addEventListener('click', () => { window.__setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); sync(); });
+    })();
+
+    (function backToTop(){
+      const btn = document.getElementById('backToTop');
+      if (!btn) return;
+      window.addEventListener('scroll', () => btn.classList.toggle('show', window.scrollY > 400));
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    (function scrollReveals(){
+      const targets = document.querySelectorAll('.reveal, .qual-section, .research-item, .milestone, .hero-panel, .card');
+      if (!targets.length) return;
+      targets.forEach((el, i) => { el.classList.add('reveal-on-scroll'); el.style.setProperty('--reveal-delay', `${Math.min(i % 5, 4) * 55}ms`); });
+      if (!('IntersectionObserver' in window)) { targets.forEach(el => el.classList.add('is-revealed')); return; }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); observer.unobserve(entry.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(el => observer.observe(el));
+    })();
+
+    (function projectFilter(){
+      const buttons = document.querySelectorAll('.project-filter .pill-btn');
+      const items = document.querySelectorAll('#research-list .research-item');
+      buttons.forEach(btn => btn.addEventListener('click', () => {
+        buttons.forEach(b => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        const filter = btn.dataset.filter;
+        items.forEach(item => {
+          item.hidden = filter !== 'all' && item.dataset.type !== filter;
+        });
+      }));
+    })();
+  </script>
+</body>
+</html>

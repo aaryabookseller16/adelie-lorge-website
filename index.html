@@ -1,217 +1,431 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
+  <script>
+    (function () {
+      const KEY = "theme";
+      const root = document.documentElement;
+      let t = "light";
+      try {
+        const s = localStorage.getItem(KEY);
+        t = (s === "light" || s === "dark") ? s : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      } catch {}
+      root.setAttribute("data-theme", t);
+      root.style.colorScheme = t;
+      window.__setTheme = (theme) => {
+        const next = theme === "dark" ? "dark" : "light";
+        root.setAttribute("data-theme", next);
+        root.style.colorScheme = next;
+        try { localStorage.setItem(KEY, next); } catch {}
+        const light = document.getElementById("lightCSS");
+        const dark  = document.getElementById("darkCSS");
+        if (light && dark) { light.disabled = next !== "light"; dark.disabled = next !== "dark"; }
+        document.dispatchEvent(new Event("themechange"));
+      };
+    })();
+  </script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Adelie Lorge — Chemical Engineering @ TAMU</title>
-  <meta name="description" content="Adelie Lorge — Chemical Engineering at Texas A&M. Research, projects, leadership, and certifications." />
+  <meta name="description" content="Adelie Lorge — Chemical Engineering at Texas A&M. Microfluidics and bacterial motility research, publications, projects, and certifications." />
   <link rel="canonical" href="https://adelie-lorge.github.io/adelie-lorge/" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <script>
-    /* Pre-paint theme to minimize flash */
-    (function(){
-      const KEY='theme', root=document.documentElement;
-      let t; try{t=localStorage.getItem(KEY)}catch{};
-      if(t!=='light'&&t!=='dark'){ t = matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
-      root.setAttribute('data-theme', t);
-    })();
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Adelie Lorge" />
+  <meta property="og:title" content="Adelie Lorge — Chemical Engineering @ TAMU" />
+  <meta property="og:description" content="Adelie Lorge — Chemical Engineering at Texas A&M. Microfluidics and bacterial motility research, publications, projects, and certifications." />
+  <meta property="og:url" content="https://adelie-lorge.github.io/adelie-lorge/" />
+  <meta property="og:image" content="https://adelie-lorge.github.io/adelie-lorge/assets/images/headshot.jpeg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Adelie Lorge — Chemical Engineering @ TAMU" />
+  <meta name="twitter:description" content="Adelie Lorge — Chemical Engineering at Texas A&M. Microfluidics and bacterial motility research, publications, projects, and certifications." />
+  <meta name="twitter:image" content="https://adelie-lorge.github.io/adelie-lorge/assets/images/headshot.jpeg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Adelie Lorge",
+    "url": "https://adelie-lorge.github.io/adelie-lorge/",
+    "image": "https://adelie-lorge.github.io/adelie-lorge/assets/images/headshot.jpeg",
+    "jobTitle": "Chemical Engineering Student",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "Texas A&M University"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/adelie-lorge-316425382/"
+    ]
+  }
   </script>
+
+  <link rel="stylesheet" href="assets/css/style.css?v=3" />
+  <link id="lightCSS" rel="stylesheet" href="assets/css/theme-light.css?v=3">
+  <link id="darkCSS"  rel="stylesheet" href="assets/css/theme-dark.css?v=3" disabled>
 </head>
 <body>
-  <!-- Sidebar -->
-  <aside class="sidebar" aria-label="Primary">
-    <a class="brand" href="#top" aria-label="Home">Adelie<span>.</span></a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-bar">
+        <a class="brand" href="index.html">Adelie<span>.</span></a>
 
-    <nav class="side-nav">
-      <a href="#about" class="active">About</a>
-      <a href="#education">Education</a>
-      <a href="#research">Research</a>
-      <a href="#projects">Projects</a>
-      <a href="#leadership">Leadership</a>
-      <a href="#skills">Skills</a>
-      <a href="#certs">Certifications</a>
-      <a href="#contact">Contact</a>
-    </nav>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16">
+            <path d="M2 4h12M2 8h12M2 12h12"/>
+          </svg>
+        </button>
 
-    <div class="side-actions">
-      <a class="btn" href="assets/Adelie_Lorge.pdf" download>📄 Résumé</a>
-      <a class="btn ghost icon-only linkedin" href="https://www.linkedin.com/in/adelie-lorge-316425382/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg class="linkedin-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.329-.026-3.042-1.855-3.042-1.855 0-2.138 1.447-2.138 2.941v5.67H9.346V9h3.414v1.561h.047c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.92 20.452H3.752V9h3.168v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      </a>
-      <button id="theme-toggle" class="btn ghost" aria-label="Toggle dark mode">🌙</button>
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="projects.html">Research &amp; Projects</a>
+          <a href="background.html">Background</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <button id="themeToggle" class="btn-icon theme-toggle" aria-label="Toggle color theme" aria-pressed="false">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
+  </header>
 
-    <button id="menu-toggle" class="btn ghost only-mobile" aria-label="Toggle menu">☰</button>
-  </aside>
-
-  <!-- Main content -->
-  <main id="top" class="content">
+  <main>
     <!-- Hero -->
     <header class="hero">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <p class="eyebrow">Texas A&M · Chemical Engineering</p>
-          <h1>Cleaner processes, smarter materials.</h1>
-          <p class="lead">
-            I’m <strong>Adelie Lorge</strong>, a Chemical Engineering student at Texas A&amp;M focused on
-            <em>microfluidic fabrication</em> and <em>materials &amp; fluid dynamics</em> research.
-            I design and evaluate PDMS molds, know how to analyze data with MATLAB, Excel, and VBA, and collaborate on experimental planning and documentation.
+      <canvas id="flowCanvas" aria-hidden="true"></canvas>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="eyebrow">Texas A&amp;M · Chemical Engineering</span>
+          <h1 class="hero-title">Cleaner processes, smarter materials.</h1>
+          <p class="hero-lead">
+            I'm <strong>Adelie Lorge</strong>, a Chemical Engineering student at Texas A&amp;M focused on
+            <em>microfluidic fabrication</em> and <em>bacterial motility</em> research.
+            I design and evaluate PDMS molds, work with MATLAB, Python, Aspen Plus, and Excel/VBA, and collaborate on experimental planning, data analysis, and publication.
           </p>
-          <div class="stack">
-            <a class="btn primary" href="#projects">See Projects →</a>
-            <a class="btn" href="assets/Adelie_Lorge.pdf" download>Download Résumé</a>
+          <div class="cta-row">
+            <a class="btn btn--primary" href="projects.html">See Projects <span class="arrow">→</span></a>
+            <a class="btn" href="assets/docs/Adelie-Lorge-Resume.pdf" download>Download Résumé</a>
           </div>
           <ul class="inline-chips" aria-label="focus areas">
-            <li>Materials & Fluid Dynamics</li>
-            <li>Thermodynamics</li>
-            <li>Process Modeling</li>
-            <li>MATLAB · VBA · Python</li>
-            <li>French (native) · Chinese (intermediate)</li>
+            <li class="pill">Microfluidic Fabrication</li>
+            <li class="pill">Bacterial Motility Research</li>
+            <li class="pill">Study Abroad</li>
+            <li class="pill">MATLAB · Python · Aspen Plus</li>
+            <li class="pill">French (native)</li>
           </ul>
         </div>
-        <figure class="hero-media">
-          <img src="assets/headshot.jpeg" alt="Portrait of Adelie Lorge" />
-        </figure>
+
+        <div class="hero-panel">
+          <img src="assets/images/headshot.jpeg" alt="Portrait of Adelie Lorge" />
+          <div class="hero-panel__body">
+            <span class="eyebrow">Snapshot</span>
+            <strong>Adelie Lorge — B.S. Chemical Engineering, TAMU · GPA 3.4</strong>
+            <div class="hero-panel__rows">
+              <p><b>Research</b> — Microfluidic fabrication &amp; bacterial motility</p>
+              <p><b>Focus</b> — PDMS replication, fluorescence microscopy</p>
+              <p><b>Skills</b> — MATLAB · Python · Aspen Plus</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container stat-strip">
+        <div class="stat"><strong>2</strong><span>Research Positions</span></div>
+        <div class="stat"><strong>1</strong><span>Publication</span></div>
+        <div class="stat"><strong>2027</strong><span>Expected Graduation</span></div>
       </div>
     </header>
 
     <!-- About -->
-    <section id="about" class="section">
-      <article class="card">
+    <section id="about" class="section about-section">
+      <div class="container">
         <h2>Summary</h2>
-        <p>
-          Chemical Engineering student at Texas A&amp;M University with undergraduate research in microfluidic device fabrication,
-          PDMS casting, and optical microscopy. Experience designing experiments, evaluating replication fidelity and surface behavior,
-          and analyzing fabrication tradeoffs for non-cleanroom approaches. Contributed to a first-author manuscript in preparation.
-        </p>
-      </article>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section">
-      <article class="card">
-        <h2>Education</h2>
-        <p>
-          <strong>Texas A&amp;M University</strong> — B.S. Chemical Engineering · Expected May 2027 · College Station, TX
-        </p>
-        <details class="toggle">
-          <summary>Relevant Coursework</summary>
-          <ul>
-            <li>CHEN 205: Chemical Engineering Thermodynamics I (Study abroad in Scotland)</li>
-            <li>CHEN 491: Experimental Research</li>
-          </ul>
-        </details>
-      </article>
-    </section>
-
-    <!-- Research -->
-    <section id="research" class="section">
-      <h2>Research</h2>
-      <div class="cards">
         <article class="card">
-          <h3><a href="https://pushkarlelelab.org/" target="_blank" rel="noopener">Undergraduate Student Researcher with Dr. Pushkar Lele — Materials &amp; Fluid Dynamics</a></h3>
-          <p class="meta">Texas A&amp;M University · College Station, TX · Sep 2025 – Present</p>
-          <ul>
-            <li>Designed and executed experimental workflows to evaluate low-cost alternatives to cleanroom-fabricated silicon masters for PDMS microfluidic devices.</li>
-            <li>Fabricated reusable microfluidic molds using photocurable optical adhesives and UV-based patterning techniques.</li>
-            <li>Characterized replication fidelity, surface behavior, and degradation across repeated PDMS casting cycles using optical microscopy.</li>
-            <li>Analyzed fabrication tradeoffs (cost, accessibility, performance) to assess scalability in non-cleanroom environments.</li>
-            <li>Collaborated with graduate and PhD researchers on experimental planning, data analysis, and documentation. </li>
-            <li>First-author manuscript in preparation.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Rocket Modeling Project — CHEN 201 Lab</h3>
-          <p class="meta">Texas A&amp;M University · Aug 2024 – Dec 2024 · Excel · VBA</p>
           <p>
-            Excel/VBA modeling project using experimental data to improve rocket flight-performance predictions.
+            Chemical Engineering student at Texas A&amp;M University with undergraduate research spanning microfluidic device
+            fabrication and bacterial motility. First-author on a preprint on high-fidelity PDMS pattern transfer, and recipient
+            of the Best Undergraduate Poster Award at the ChEGSA Annual Symposium. Experienced in experimental design, optical
+            and fluorescence microscopy, and quantitative data analysis.
           </p>
-          <ul>
-            <li>Built and calibrated Excel/VBA-based rocket flight performance models using experimental data.</li>
-            <li>Automated parameter tuning and calculations to improve prediction accuracy and modeling efficiency.</li>
-            <li>Integrated experimental measurements with computational analysis to assess model sensitivity and robustness.</li>
-          </ul>
         </article>
       </div>
     </section>
 
-    <!-- Leadership -->
-    <section id="leadership" class="section">
-      <article class="card">
-        <h2>Leadership</h2>
-        <p><strong>European Scouts — Leader</strong> · Houston, TX · Aug 2020 – May 2023</p>
-        <ul>
-          <li>Led and coordinated activities for 40+ children, managing logistics, safety planning, budgeting, and parent communication.</li>
-          <li>Operated in a high-responsibility environment requiring leadership, organization, and risk management.</li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" class="section">
-      <article class="card">
-        <h2>Skills</h2>
-        <ul>
-          <li><strong>Programming &amp; Analysis:</strong> MATLAB (modeling, data analysis), Excel (advanced formulas, data analysis), VBA (workflow automation)</li>
-          <li><strong>Experimental &amp; Engineering:</strong> Microfluidic fabrication, PDMS casting, optical microscopy, experimental design, data analysis</li>
-          <li><strong>Safety &amp; Compliance:</strong> Laboratory safety certifications</li>
-        </ul>
-      </article>
-    </section>
-
-    <!-- Certifications (each with a downloadable PDF in /assets) -->
-    <section id="certs" class="section">
-      <h2>Certifications</h2>
-      <div class="cards">
-        <article class="card">
-          <h3>Biosafety Level 2 (BSL-2) Certification</h3>
-          <p class="meta">Texas A&amp;M University</p>
-          <a class="btn sm" href="assets/Biosafety Level 2 Training - Biosafety.pdf" download>Download PDF</a>
-        </article>
-        <article class="card">
-          <h3>Introduction to Programming with MATLAB</h3>
-          <p class="meta">Coursera</p>
-          <a class="btn sm" href="assets/Introduction to Programming with Matlab certificate.pdf" download>Download PDF</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="section">
-      <article class="card">
-        <h2>Contact</h2>
-        <p><strong>Email:</strong> <a href="mailto:adelielorge@gmail.com">adelielorge@gmail.com</a></p>
-        <p><strong>Phone:</strong> +1 (346) 267-3769</p>
-        <p><strong>LinkedIn:</strong>
-          <a class="icon-link" href="https://www.linkedin.com/in/adelie-lorge-316425382/" target="_blank" rel="noopener">
-            <svg class="linkedin-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.329-.026-3.042-1.855-3.042-1.855 0-2.138 1.447-2.138 2.941v5.67H9.346V9h3.414v1.561h.047c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.92 20.452H3.752V9h3.168v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            adelie-lorge
-          </a>
-        </p>
-        <div class="row wrap">
-          <a class="btn primary" href="assets/Adelie_Lorge.pdf" download>Download Résumé</a>
+    <!-- Updates -->
+    <section class="section milestones-section">
+      <div class="container milestones-grid">
+        <div class="milestones-intro">
+          <span class="eyebrow">Updates · 2025–2027</span>
+          <h2 class="milestones-title">Selected<br>Updates.</h2>
+          <p class="milestones-lead">A dated record of research milestones and the work currently shaping my path.</p>
+          <div class="milestones-meta">
+            <span>4 Entries</span>
+            <span>2025 – 2027</span>
+          </div>
         </div>
-      </article>
+
+        <ol class="milestones-list">
+          <li class="milestone">
+            <span class="milestone__index">01</span>
+            <span class="milestone__point" aria-hidden="true"></span>
+            <div class="milestone__body">
+              <span class="milestone__date">Aug 2025 – Present</span>
+              <span class="milestone__tag">Research</span>
+              <h3><a href="projects.html#research">Joined Dr. Pushkar Lele's Lab <span class="arrow">↗</span></a></h3>
+              <p>Microfluidic process development and materials research at Texas A&amp;M University.</p>
+            </div>
+          </li>
+          <li class="milestone">
+            <span class="milestone__index">02</span>
+            <span class="milestone__point" aria-hidden="true"></span>
+            <div class="milestone__body">
+              <span class="milestone__date">Jun 2026 – Present</span>
+              <span class="milestone__tag">Research</span>
+              <h3><a href="projects.html#bacterial-motility">Started Bacterial Motility Research <span class="arrow">↗</span></a></h3>
+              <p>Summer research project studying bacterial motility in microfluidic devices.</p>
+            </div>
+          </li>
+          <li class="milestone">
+            <span class="milestone__index">03</span>
+            <span class="milestone__point" aria-hidden="true"></span>
+            <div class="milestone__body">
+              <span class="milestone__date">Summer 2026</span>
+              <span class="milestone__tag">Award</span>
+              <h3><a href="projects.html#publications">Best Undergraduate Poster Award <span class="arrow">↗</span></a></h3>
+              <p>ChEGSA Annual Symposium, Texas A&amp;M University.</p>
+            </div>
+          </li>
+          <li class="milestone">
+            <span class="milestone__index">04</span>
+            <span class="milestone__point" aria-hidden="true"></span>
+            <div class="milestone__body">
+              <span class="milestone__date">Expected May 2027</span>
+              <span class="milestone__tag">Education</span>
+              <h3><a href="background.html#education">B.S. Chemical Engineering <span class="arrow">↗</span></a></h3>
+              <p>Texas A&amp;M University, College Station, TX.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <footer class="footer">
-      <p class="mono">© <span id="year"></span> Adelie Lorge</p>
-    </footer>
+    <!-- Bottom CTAs -->
+    <section class="section">
+      <div class="container cta-row">
+        <a class="btn" href="projects.html">See Projects <span class="arrow">→</span></a>
+        <a class="btn" href="background.html">Background <span class="arrow">→</span></a>
+        <a class="btn" href="contact.html">Contact <span class="arrow">→</span></a>
+      </div>
+    </section>
   </main>
 
-  <script src="script.js" defer></script>
-  <a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top">↑</a>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bar">
+        <span class="footer-copy">© <span id="year"></span> Adelie Lorge</span>
+        <a class="footer-contact" href="contact.html">Contact me <span class="arrow">→</span></a>
+        <div class="footer-links">
+          <a href="https://www.linkedin.com/in/adelie-lorge-316425382/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.329-.026-3.042-1.855-3.042-1.855 0-2.138 1.447-2.138 2.941v5.67H9.346V9h3.414v1.561h.047c.477-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM6.92 20.452H3.752V9h3.168v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <span class="tooltip">
+            <a href="mailto:adelielorge@gmail.com" aria-label="Email">✉</a>
+            <span class="tooltip-text">adelielorge@gmail.com</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <button id="backToTop" aria-label="Back to top">↑</button>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function syncTheme(){
+      const t = document.documentElement.getAttribute("data-theme") || "light";
+      const light = document.getElementById("lightCSS");
+      const dark  = document.getElementById("darkCSS");
+      if (light && dark) { light.disabled = t !== "light"; dark.disabled = t !== "dark"; }
+    })();
+
+    (function mobileNav(){
+      const toggle = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('site-nav');
+      if (!toggle || !nav) return;
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('open', !open);
+      });
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }));
+      const mq = window.matchMedia('(min-width: 769px)');
+      const sync = () => { if (mq.matches) { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); } };
+      mq.addEventListener ? mq.addEventListener('change', sync) : mq.addListener(sync);
+    })();
+
+    (function themeToggle(){
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const sync = () => btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+      sync();
+      btn.addEventListener('click', () => { window.__setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); sync(); });
+    })();
+
+    (function backToTop(){
+      const btn = document.getElementById('backToTop');
+      if (!btn) return;
+      window.addEventListener('scroll', () => btn.classList.toggle('show', window.scrollY > 400));
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+
+    (function scrollReveals(){
+      const targets = document.querySelectorAll('.reveal, .qual-section, .research-item, .milestone, .hero-panel, .card');
+      if (!targets.length) return;
+      targets.forEach((el, i) => { el.classList.add('reveal-on-scroll'); el.style.setProperty('--reveal-delay', `${Math.min(i % 5, 4) * 55}ms`); });
+      if (!('IntersectionObserver' in window)) { targets.forEach(el => el.classList.add('is-revealed')); return; }
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-revealed'); observer.unobserve(entry.target); } });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      targets.forEach(el => observer.observe(el));
+    })();
+
+    (function fluidNetwork(){
+      const canvas = document.getElementById('flowCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let W = 0, H = 0, dpr = 1;
+      let nodes = [], edges = [];
+      let accent = { r: 58, g: 118, b: 166 };
+
+      function hexToRgb(hex) {
+        const m = hex.trim().replace('#', '');
+        if (m.length !== 6) return accent;
+        return {
+          r: parseInt(m.substring(0, 2), 16),
+          g: parseInt(m.substring(2, 4), 16),
+          b: parseInt(m.substring(4, 6), 16),
+        };
+      }
+
+      function readAccent() {
+        const val = getComputedStyle(document.documentElement).getPropertyValue('--accent');
+        if (val) accent = hexToRgb(val);
+      }
+
+      function rgba(alpha) {
+        return `rgba(${accent.r}, ${accent.g}, ${accent.b}, ${alpha})`;
+      }
+
+      function buildLattice() {
+        nodes = [];
+        edges = [];
+        const cols = 7, rows = 5;
+        const spacingX = W / (cols - 1);
+        const spacingY = H / (rows - 1);
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            const jitter = Math.min(spacingX, spacingY) * 0.18;
+            nodes.push({
+              x: c * spacingX + (Math.random() - 0.5) * jitter,
+              y: r * spacingY + (Math.random() - 0.5) * jitter,
+              r: 1.4 + Math.random() * 1.3,
+              phase: Math.random() * Math.PI * 2,
+            });
+          }
+        }
+        const idx = (r, c) => r * cols + c;
+        for (let r = 0; r < rows; r++) {
+          for (let c = 0; c < cols; c++) {
+            if (c < cols - 1) edges.push({ a: idx(r, c), b: idx(r, c + 1), t: Math.random(), speed: 0.12 + Math.random() * 0.18, bow: (Math.random() - 0.5) * 18 });
+            if (r < rows - 1) edges.push({ a: idx(r, c), b: idx(r + 1, c), t: Math.random(), speed: 0.1 + Math.random() * 0.16, bow: (Math.random() - 0.5) * 18 });
+          }
+        }
+      }
+
+      function resize() {
+        const rect = canvas.parentElement.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = rect.width;
+        H = rect.height;
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        canvas.style.width = W + 'px';
+        canvas.style.height = H + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildLattice();
+      }
+
+      function draw(time) {
+        ctx.clearRect(0, 0, W, H);
+
+        edges.forEach((e) => {
+          const a = nodes[e.a], b = nodes[e.b];
+          const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 + e.bow;
+
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.quadraticCurveTo(mx, my, b.x, b.y);
+          ctx.strokeStyle = rgba(0.24);
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+
+          if (!reduceMotion) {
+            e.t = (e.t + e.speed * 0.0035) % 1;
+            const t = e.t;
+            const x = (1 - t) * (1 - t) * a.x + 2 * (1 - t) * t * mx + t * t * b.x;
+            const y = (1 - t) * (1 - t) * a.y + 2 * (1 - t) * t * my + t * t * b.y;
+            ctx.beginPath();
+            ctx.arc(x, y, 1.7, 0, Math.PI * 2);
+            ctx.fillStyle = rgba(0.85);
+            ctx.fill();
+          }
+        });
+
+        nodes.forEach((n) => {
+          const pulse = reduceMotion ? 0 : Math.sin(time * 0.0009 + n.phase) * 0.6;
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r + pulse, 0, Math.PI * 2);
+          ctx.fillStyle = rgba(0.62);
+          ctx.fill();
+        });
+      }
+
+      function loop(time) {
+        draw(time);
+        if (!reduceMotion) requestAnimationFrame(loop);
+      }
+
+      readAccent();
+      resize();
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(resize, 150);
+      });
+      document.addEventListener('themechange', readAccent);
+
+      if (reduceMotion) {
+        draw(0);
+      } else {
+        requestAnimationFrame(loop);
+      }
+    })();
+  </script>
 </body>
 </html>

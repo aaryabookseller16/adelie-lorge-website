@@ -1,20 +1,28 @@
 # Adelie Lorge Portfolio
 
-Clean, single-page portfolio site showcasing Adelie Lorge's education, research, projects, and certifications.
+Multi-page portfolio site showcasing Adelie Lorge's education, research, projects, and certifications.
 
 ## Highlights
 - Responsive, fast-loading static site
-- Light/dark theme toggle with persistence
-- Printable resume and certification downloads
+- Light (day) / dark (night) theme toggle with persistence
+- Downloadable resume and certification PDFs
 
 ## Tech
 - HTML + CSS + vanilla JavaScript (no build step)
 
 ## Project structure
-- `index.html` — content and layout
-- `style.css` — design system and component styles
-- `script.js` — theme toggle and UI behavior
-- `assets/` — images and PDFs
+- `index.html` — Home
+- `projects.html` — Research & Projects
+- `background.html` — Education, Leadership, Skills, Certifications
+- `contact.html` — Contact
+- `assets/css/style.css` — shared component/layout styles
+- `assets/css/theme-light.css` / `assets/css/theme-dark.css` — theme color variables
+- `assets/images/` — site images
+- `assets/docs/` — resume and certification PDFs
+- `googleb5166b1938ada4bd.html` — Google Search Console verification file
+- `sitemap.xml` — search-engine sitemap
+
+Each page inlines its own theme-boot script, header/footer markup, and behavior script (mobile nav, theme toggle, back-to-top, scroll reveal) — there is no shared template or build step, so a change to the header/footer/nav must be repeated across all 4 HTML files.
 
 ## Run locally
 Open `index.html` directly, or run a local server:

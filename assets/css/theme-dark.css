@@ -1,0 +1,19 @@
+/* Dark / night theme — deep navy + warm sand accent */
+:root {
+  --bg:              #0f1720;
+  --bg-1:            #16212c;
+  --bg-2:            #1e2c3a;
+  --text:            #ece6d8;
+  --muted:           #9aa7b2;
+  --border:          #26374a;
+  --muted-strong:    #f2ece0;
+  --accent:          #d9a066;
+  --accent-fg:       #17110a;
+  --accent-contrast: #17110a;
+  --font-sans:       "Times New Roman", Times, serif;
+  --font-mono:       ui-monospace, "SF Mono", "IBM Plex Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+  --radius:          4px;
+  --shadow-1:        0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-2:        0 4px 14px rgba(0, 0, 0, 0.45);
+  --canvas-opacity:  0.55;
+}
